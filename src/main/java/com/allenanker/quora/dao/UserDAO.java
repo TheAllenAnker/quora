@@ -1,13 +1,11 @@
 package com.allenanker.quora.dao;
 
 import com.allenanker.quora.model.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Mapper
 public interface UserDAO {
     String TABLE_NAME = " user ";
     String INSERT_FIELDS = " name, password, salt, head_url ";
