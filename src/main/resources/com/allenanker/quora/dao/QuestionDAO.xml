@@ -11,7 +11,7 @@
         created_date,
         user_id
     </sql>
-    <select id="selectLatestQuestions" resultType="com.allenanker.quora.model.Question">
+    <select id="selectLastestQuestions" resultType="com.allenanker.quora.model.Question">
         SELECT
         <include refid="selectFields"/>
         FROM

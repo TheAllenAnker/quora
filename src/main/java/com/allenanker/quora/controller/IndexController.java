@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @Controller
 public class IndexController {
+    /**
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET})
     @ResponseBody
     public String index(HttpSession httpSession) {
@@ -65,4 +66,5 @@ public class IndexController {
     public String error(Exception e) {
         return "Error: " + e.getMessage();
     }
+    **/
 }
