@@ -24,8 +24,9 @@
     <div class="zg-wrap modal-shifting clearfix" id="zh-top-inner">
         <a href="https://nowcoder.com/" class="zu-top-link-logo" id="zh-top-link-logo" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_zhihu_logo">牛客</a>
         <div class="top-nav-profile">
+            <#if user??>
             <a href="https://nowcoder.com/people/hu-yuan-24-48" class="zu-top-nav-userinfo " id=":0" role="button" aria-haspopup="true" aria-activedescendant="">
-                <span class="name">牛客</span>
+                <span class="name">${user.name}</span>
                 <img class="Avatar" src="../images/res/da8e974dc_s.jpg" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="牛客">
                     <span id="zh-top-nav-new-pm" class="zg-noti-number zu-top-nav-pm-count" style="visibility:hidden" data-count="0">
                     </span>
@@ -49,11 +50,18 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://nowcoder.com/logout" tabindex="-1" id=":4">
+                    <a href="/logout" tabindex="-1" id=":4">
                         <i class="zg-icon zg-icon-dd-logout"></i>退出
                     </a>
                 </li>
             </ul>
+            <#else>
+            <ul class="topnav-noauth clearfix">
+                <li>
+                    <a href="/loginPage">注册/登陆</a>
+                </li>
+            </ul>
+            </#if>
         </div>
         <button class="zu-top-add-question" id="zu-top-add-question">提问</button>
         <div role="search" id="zh-top-search" class="zu-top-search">
