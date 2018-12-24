@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
     UserService userService;
