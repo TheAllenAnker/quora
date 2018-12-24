@@ -28,6 +28,7 @@ public class InitDatabaseTest {
         Random random = new Random();
         for (int i = 0; i < 11; ++i) {
             User user = new User();
+            user.setId(i + 1);
             user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
             user.setName(String.format("USER%d", i));
             user.setPassword("");
@@ -44,12 +45,10 @@ public class InitDatabaseTest {
             question.setCreatedDate(date);
             question.setUserId(i + 1);
             question.setTitle(String.format("TITLE{%d}", i));
-            question.setContent(String.format("Balaababalalalal Content %d", i));
+            question.setContent(String.format("Bla bla bla, Content %d", i));
             questionDAO.addQuestion(question);
         }
 
         Assert.assertEquals("newpassword", userDAO.selectById(1).getPassword());
-        userDAO.deleteById(1);
-        Assert.assertNull(userDAO.selectById(1));
     }
 }

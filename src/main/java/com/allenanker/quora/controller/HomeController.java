@@ -40,7 +40,7 @@ public class HomeController {
     }
 
     private List<ViewObject> getQuestions(int userId, int offset, int limit) {
-        List<Question> questions = questionService.selectLastestQuestions(userId, offset, limit);
+        List<Question> questions = questionService.selectLatestQuestions(userId, offset, limit);
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questions) {
             ViewObject vo = new ViewObject();

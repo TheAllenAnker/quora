@@ -7,18 +7,18 @@
         id,
         title,
         content,
-        comment_count,
+        user_id,
         created_date,
-        user_id
+        comment_count
     </sql>
-    <select id="selectLastestQuestions" resultType="com.allenanker.quora.model.Question">
+    <select id="selectLatestQuestions" resultType="com.allenanker.quora.model.Question">
         SELECT
-        <include refid="selectFields"/>
+        *
         FROM
         <include refid="table"/>
 
         <if test="userId != 0">
-            WHERE user_id = #{userId}
+        WHERE userId = #{userId}
         </if>
         ORDER BY id DESC
         LIMIT #{offset},#{limit}
