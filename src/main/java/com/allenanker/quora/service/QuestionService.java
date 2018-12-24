@@ -14,7 +14,7 @@ public class QuestionService {
     private static final Logger logger = LoggerFactory.getLogger(QuestionService.class);
 
     @Autowired
-    QuestionDAO questionDAO;
+    private QuestionDAO questionDAO;
 
     public List<Question> selectLatestQuestions(int userId, int offset, int limit) {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
