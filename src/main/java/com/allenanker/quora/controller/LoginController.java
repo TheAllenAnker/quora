@@ -1,6 +1,7 @@
 package com.allenanker.quora.controller;
 
 import com.allenanker.quora.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class LoginController {
     public String register(Model model,
                            @RequestParam("username") String username,
                            @RequestParam("password") String password,
+                           @RequestParam(value = "next", required = false) String next,
                            HttpServletResponse response) {
 
         try {
@@ -45,6 +47,9 @@ public class LoginController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
+            if (StringUtils.isNotBlank(next)) {
+                return "redirect:" + next;
+            }
             return "redirect:/";
         } catch (Exception e) {
             logger.error("Register Error: " + e.getMessage());
@@ -57,6 +62,7 @@ public class LoginController {
                         @RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam(value = "rememberme", defaultValue = "false") boolean rememberMe,
+                        @RequestParam(value = "next", required = false) String next,
                         HttpServletResponse response) {
 
         try {
@@ -68,6 +74,9 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 365);
                 }
                 response.addCookie(cookie);
+                if (StringUtils.isNotBlank(next)) {
+                    return "redirect:" + next;
+                }
                 return "redirect:/";
             }
             if (msgMap.containsKey("msg")) {
@@ -81,7 +90,9 @@ public class LoginController {
     }
 
     @RequestMapping(path = {"/loginPage"}, method = {RequestMethod.GET})
-    public String loginPage() {
+    public String loginPage(Model model,
+                            @RequestParam(value = "next", required = false) String next) {
+        model.addAttribute("next", next);
         return "login";
     }
 }
