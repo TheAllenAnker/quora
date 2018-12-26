@@ -1,5 +1,6 @@
 package com.allenanker.quora.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +8,16 @@ import java.security.MessageDigest;
 
 public class QuoraUtils {
     private static final Logger logger = LoggerFactory.getLogger(QuoraUtils.class);
+
+    public static int ANONYMOUS_USER_ID = 1;
+
+    public static String getJSONString(int code, String msg) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", code);
+        jsonObject.put("msg", msg);
+
+        return jsonObject.toJSONString();
+    }
 
     public static String MD5(String key) {
         char[] hexDigits = {
