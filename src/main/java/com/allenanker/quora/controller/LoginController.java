@@ -47,7 +47,7 @@ public class LoginController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
-            if (StringUtils.isNotBlank(next)) {
+            if (StringUtils.isNotBlank(next) && next.startsWith("/")) {
                 return "redirect:" + next;
             }
             return "redirect:/";
@@ -74,7 +74,7 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 365);
                 }
                 response.addCookie(cookie);
-                if (StringUtils.isNotBlank(next)) {
+                if (StringUtils.isNotBlank(next) && next.startsWith("/")) {
                     return "redirect:" + next;
                 }
                 return "redirect:/";
