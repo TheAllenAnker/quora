@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.Date;
 
@@ -31,8 +32,8 @@ public class QuestionController {
                               @RequestParam("content") String content) {
         try {
             Question question = new Question();
-            question.setTitle(title);
-            question.setContent(content);
+            question.setTitle(HtmlUtils.htmlEscape(title));
+            question.setContent(HtmlUtils.htmlEscape(content));
             question.setCreatedDate(new Date());
             question.setCommentCount(0);
             if (hostHolder.getUser() != null) {
