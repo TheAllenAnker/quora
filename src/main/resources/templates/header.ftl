@@ -14,6 +14,7 @@
     <meta id="znonce" name="znonce" content="d3edc464cf014708819feffde7ddd01e">
     <link rel="search" type="application/opensearchdescription+xml" href="https://nowcoder.com/static/search.xml" title="牛客">
     <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css">
     <style>
     .zm-item-answer-author-info a.collapse {margin-top: 0}
     </style>
@@ -63,7 +64,9 @@
             </ul>
             </#if>
         </div>
+        <#if user??>
         <button class="zu-top-add-question" id="zu-top-add-question">提问</button>
+        </#if>
         <div role="search" id="zh-top-search" class="zu-top-search">
             <form method="GET" action="https://nowcoder.com/search" id="zh-top-search-form" class="zu-top-search-form">
                 <input type="hidden" name="type" value="content">
