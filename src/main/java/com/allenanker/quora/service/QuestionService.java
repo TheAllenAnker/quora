@@ -16,6 +16,10 @@ public class QuestionService {
     @Autowired
     private QuestionDAO questionDAO;
 
+    public Question findQuestionById(int qid) {
+        return questionDAO.selectQuestionById(qid);
+    }
+
     public int addQuestion(Question question) {
         return questionDAO.addQuestion(question) > 0 ? question.getId() : 0;
     }
