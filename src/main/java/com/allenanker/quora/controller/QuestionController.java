@@ -3,6 +3,7 @@ package com.allenanker.quora.controller;
 import com.allenanker.quora.model.HostHolder;
 import com.allenanker.quora.model.Question;
 import com.allenanker.quora.service.QuestionService;
+import com.allenanker.quora.service.SensitiveWordsService;
 import com.allenanker.quora.util.QuoraUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +27,17 @@ public class QuestionController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    SensitiveWordsService sensitiveWordsService;
+
     @RequestMapping(path = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
                               @RequestParam("content") String content) {
         try {
             Question question = new Question();
-            question.setTitle(HtmlUtils.htmlEscape(title));
-            question.setContent(HtmlUtils.htmlEscape(content));
+            question.setTitle(HtmlUtils.htmlEscape(sensitiveWordsService.filterBySensitiveWords(title)));
+            question.setContent(HtmlUtils.htmlEscape(sensitiveWordsService.filterBySensitiveWords(content)));
             question.setCreatedDate(new Date());
             question.setCommentCount(0);
             if (hostHolder.getUser() != null) {

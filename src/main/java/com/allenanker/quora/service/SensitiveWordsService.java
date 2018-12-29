@@ -45,6 +45,10 @@ public class SensitiveWordsService implements InitializingBean {
         while (curr < inputText.length()) {
             char c = inputText.charAt(curr);
             if (isInvalidSymbol(c)) {
+                if (trieRootCopy == rootOfSensitiveTrie) {
+                    sb.append(c);
+                    start++;
+                }
                 curr++;
                 continue;
             }
@@ -116,12 +120,5 @@ public class SensitiveWordsService implements InitializingBean {
         public void setEnd() {
             isEnd = true;
         }
-    }
-
-    public static void main(String[] args) {
-        SensitiveWordsService sensitiveWordsService = new SensitiveWordsService();
-        sensitiveWordsService.addWordToSensitiveTire("abcab");
-        sensitiveWordsService.addWordToSensitiveTire("ab");
-        System.out.println(sensitiveWordsService.filterBySensitiveWords("abcaba baabbedf"));
     }
 }
