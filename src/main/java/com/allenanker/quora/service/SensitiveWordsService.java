@@ -1,5 +1,6 @@
 package com.allenanker.quora.service;
 
+import org.apache.commons.lang.CharUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class SensitiveWordsService implements InitializingBean {
                 addWordToSensitiveTire(word.trim());
             }
         } catch (Exception e) {
-            logger.error("Read file SensitiveWords.txt failed.");
+            logger.error("Read file SensitiveWords.txt failed: " + e.getMessage());
         }
     }
 
@@ -43,6 +44,10 @@ public class SensitiveWordsService implements InitializingBean {
         int curr = 0;
         while (curr < inputText.length()) {
             char c = inputText.charAt(curr);
+            if (isInvalidSymbol(c)) {
+                curr++;
+                continue;
+            }
             if (trieRootCopy.getLeaf(c) == null) {
                 if (start == curr) {
                     sb.append(inputText.charAt(start));
@@ -55,7 +60,7 @@ public class SensitiveWordsService implements InitializingBean {
                 trieRootCopy = trieRootCopy.getLeaf(c);
                 if (trieRootCopy.isEnd()
                         && ((curr + 1 < inputText.length() && trieRootCopy.getLeaf(inputText.charAt(curr + 1)) == null)
-                            || curr + 1 == inputText.length())) {
+                        || curr + 1 == inputText.length())) {
                     sb.append(replacement);
                     start = curr + 1;
                     trieRootCopy = rootOfSensitiveTrie;
@@ -67,11 +72,19 @@ public class SensitiveWordsService implements InitializingBean {
         return sb.toString();
     }
 
+    private boolean isInvalidSymbol(char c) {
+        int ic = (int) c;
+        return !CharUtils.isAsciiAlphanumeric(c) && (ic < 0x2E80 || ic > 0x9FFF);
+    }
+
     private void addWordToSensitiveTire(String word) {
         TrieNode rootNodeCopy = rootOfSensitiveTrie;
 
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
+            if (isInvalidSymbol(c)) {
+                continue;
+            }
             if (rootNodeCopy.getLeaf(c) == null) {
                 rootNodeCopy.addLeaf(c);
             }
@@ -109,6 +122,6 @@ public class SensitiveWordsService implements InitializingBean {
         SensitiveWordsService sensitiveWordsService = new SensitiveWordsService();
         sensitiveWordsService.addWordToSensitiveTire("abcab");
         sensitiveWordsService.addWordToSensitiveTire("ab");
-        System.out.println(sensitiveWordsService.filterBySensitiveWords("abcababaabbedf"));
+        System.out.println(sensitiveWordsService.filterBySensitiveWords("abcaba baabbedf"));
     }
 }
