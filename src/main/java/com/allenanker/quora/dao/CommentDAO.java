@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface CommentDAO {
     String TABLE_NAME = " comment ";
-    String INSERT_FIELDS = " user_id, entity_id, entity_type, content, createdDate, status ";
+    String INSERT_FIELDS = " user_id, entity_id, entity_type, content, created_date, status ";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     @Select({"select count(id) from ", TABLE_NAME, " WHERE entity_id=#{entityId} and " +
