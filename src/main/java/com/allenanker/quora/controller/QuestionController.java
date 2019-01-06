@@ -1,7 +1,7 @@
 package com.allenanker.quora.controller;
 
-import com.allenanker.quora.model.HostHolder;
-import com.allenanker.quora.model.Question;
+import com.allenanker.quora.model.*;
+import com.allenanker.quora.service.CommentService;
 import com.allenanker.quora.service.QuestionService;
 import com.allenanker.quora.service.SensitiveWordsService;
 import com.allenanker.quora.service.UserService;
@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class QuestionController {
@@ -31,6 +33,9 @@ public class QuestionController {
 
     @Autowired
     SensitiveWordsService sensitiveWordsService;
+
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping(path = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -63,6 +68,15 @@ public class QuestionController {
         Question question = questionService.findQuestionById(qid);
         model.addAttribute("question", question);
         model.addAttribute("user", userService.getUser(question.getUserId()));
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        List<ViewObject> comments = new ArrayList<>();
+        for (Comment comment : commentList) {
+            ViewObject vo = new ViewObject();
+            vo.set("comment", comment);
+            vo.set("user", userService.getUser(comment.getUserId()));
+            comments.add(vo);
+        }
+        model.addAttribute("comments", comments);
 
         return "detail";
     }

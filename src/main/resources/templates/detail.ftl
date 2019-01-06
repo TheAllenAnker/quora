@@ -102,7 +102,7 @@
         <img src="$comment.user.headUrl"
              class="zm-list-avatar avatar"></a>
     <a class="author-link" target="_blank"
-    href="/user/${comment.user.id}">${comment.user.name}</a>
+    href="/user/${comment.user.id!""}">${comment.user.name!""}</a>
     </div>
 <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
                                 <span class="voters text">

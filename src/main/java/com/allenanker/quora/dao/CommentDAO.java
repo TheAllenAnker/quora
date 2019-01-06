@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface CommentDAO {
     String TABLE_NAME = " comment ";
-    String INSERT_FIELDS = " user_id, entity_id, entity_type, content, created_date, status ";
+    String INSERT_FIELDS = " userId, entityId, entityType, content, createdDate, status ";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
-    @Select({"select count(id) from ", TABLE_NAME, " WHERE entity_id=#{entityId} and " +
+    @Select({"select count(id) from ", TABLE_NAME, " WHERE entityId=#{entityId} and " +
             "entityType=#{entityType}"})
     int getCommentCount(@Param("entityId") int entityId, @Param("entityType") int entityType);
 
@@ -21,6 +21,8 @@ public interface CommentDAO {
             "#{content}, #{createdDate}, #{status})"})
     int addComment(Comment comment);
 
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " WHERE entityId=#{entityId} and " +
+            "entityType=#{entityType}"})
     List<Comment> selectCommentsByEntity(@Param("entityId") int entityId, @Param("entityType") int entityType);
 
     @Update({"update ", TABLE_NAME, " set status=#{status} where id=#{id}"})
