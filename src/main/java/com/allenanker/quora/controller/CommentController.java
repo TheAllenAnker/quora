@@ -4,6 +4,7 @@ import com.allenanker.quora.model.Comment;
 import com.allenanker.quora.model.EntityType;
 import com.allenanker.quora.model.HostHolder;
 import com.allenanker.quora.service.CommentService;
+import com.allenanker.quora.service.QuestionService;
 import com.allenanker.quora.service.SensitiveWordsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    QuestionService questionService;
+
     @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
     public String addComment(@RequestParam("questionId") int questionId,
                              @RequestParam("content") String content) {
@@ -41,6 +45,9 @@ public class CommentController {
                 comment.setEntityId(questionId);
                 comment.setUserId(hostHolder.getUser().getId());
                 commentService.addComment(comment);
+
+                int commentCount = commentService.getCommentCount(questionId, EntityType.ENTITY_QUESTION);
+                questionService.updateCommentCount(questionId, commentCount);
             } else {
                 return "redirect:/loginPage";
             }
