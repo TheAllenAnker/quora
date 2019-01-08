@@ -34,19 +34,19 @@
             </a>
             <ul class="top-nav-dropdown" id="top-nav-profile-dropdown" aria-labelledby=":0">
                 <li>
-                    <a href="https://nowcoder.com/people/hu-yuan-24-48" tabindex="-1" id=":1">
+                    <a href="/user/${user.id}" tabindex="-1" id=":1">
                         <i class="zg-icon zg-icon-dd-home"></i>我的主页
                     </a>
                 </li>
                 <li>
-                    <a href="https://nowcoder.com/inbox" tabindex="-1" id=":2">
+                    <a href="/msg/list" tabindex="-1" id=":2">
                         <i class="zg-icon zg-icon-dd-pm"></i>私信
                     <span id="zh-top-nav-pm-count" class="zu-top-nav-pm-count zg-noti-number" style="visibility:hidden" data-count="0">
                     </span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://nowcoder.com/settings" tabindex="-1" id=":3">
+                    <a href="/" tabindex="-1" id=":3">
                         <i class="zg-icon zg-icon-dd-settings"></i>设置
                     </a>
                 </li>
