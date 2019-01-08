@@ -83,8 +83,12 @@ public class UserService {
         return msgMap;
     }
 
-    public User getUser(int id) {
+    public User getUserId(int id) {
         return userDAO.selectById(id);
+    }
+
+    public User getUserByName(String name) {
+        return userDAO.selectByName(name);
     }
 
     private String addLoginTicket(int userId) {
