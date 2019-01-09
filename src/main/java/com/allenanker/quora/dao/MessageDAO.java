@@ -20,8 +20,8 @@ public interface MessageDAO {
             "#{hasRead}, #{conversationId}, #{createdDate})"})
     int addMessage(Message message);
 
-    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " WHERE conversationId=#{conversationId} order by desc " +
-            "limit #{offset}, #{limit}"})
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " WHERE conversationId=#{conversationId} order by id " +
+            "desc limit #{offset}, #{limit}"})
     List<Message> selectMessagesByConversationId(@Param("conversationId") String conversationId,
                                                  @Param("offset") int offset,
                                                  @Param("limit") int limit);

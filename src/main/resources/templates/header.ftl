@@ -28,7 +28,7 @@
             <#if user??>
             <a href="https://nowcoder.com/people/hu-yuan-24-48" class="zu-top-nav-userinfo " id=":0" role="button" aria-haspopup="true" aria-activedescendant="">
                 <span class="name">${user.name}</span>
-                <img class="Avatar" src="../images/res/da8e974dc_s.jpg" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="牛客">
+                <img class="Avatar" src="${user.headUrl}" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="牛客">
                     <span id="zh-top-nav-new-pm" class="zg-noti-number zu-top-nav-pm-count" style="visibility:hidden" data-count="0">
                     </span>
             </a>

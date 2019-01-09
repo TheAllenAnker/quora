@@ -83,7 +83,7 @@ public class UserService {
         return msgMap;
     }
 
-    public User getUserId(int id) {
+    public User getUserById(int id) {
         return userDAO.selectById(id);
     }
 

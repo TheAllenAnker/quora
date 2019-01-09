@@ -3,6 +3,7 @@ package com.allenanker.quora.controller;
 import com.allenanker.quora.model.HostHolder;
 import com.allenanker.quora.model.Message;
 import com.allenanker.quora.model.User;
+import com.allenanker.quora.model.ViewObject;
 import com.allenanker.quora.service.MessageService;
 import com.allenanker.quora.service.UserService;
 import com.allenanker.quora.util.QuoraUtils;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class MessageController {
@@ -66,6 +69,21 @@ public class MessageController {
     @RequestMapping(path = {"/msg/detail"}, method = {RequestMethod.GET})
     public String getConversationDetails(Model model,
                                          @RequestParam("conversationId") String conversationId) {
+        List<Message> messageList = messageService.getConversationMessages(conversationId, 0, 10);
+        List<ViewObject> messages = new ArrayList<>();
+        for (Message message : messageList) {
+            ViewObject vo = new ViewObject();
+            vo.set("message", message);
+            User fromUser = userService.getUserById(message.getFromId());
+            if (fromUser == null) {
+                continue;
+            }
+            vo.set("headUrl", fromUser.getHeadUrl());
+            vo.set("userId", fromUser.getId());
+            messages.add(vo);
+        }
+        model.addAttribute("messages", messages);
+
         return "letterDetail";
     }
 }

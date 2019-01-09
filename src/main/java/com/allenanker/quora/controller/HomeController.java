@@ -45,7 +45,7 @@ public class HomeController {
         for (Question question : questions) {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
-            vo.set("user", userService.getUserId(question.getUserId()));
+            vo.set("user", userService.getUserById(question.getUserId()));
             vos.add(vo);
         }
         return vos;
