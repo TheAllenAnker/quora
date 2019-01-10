@@ -34,4 +34,7 @@ public interface MessageDAO {
     List<Message> getConversationList(@Param("userId") int userId,
                                       @Param("offset") int offset,
                                       @Param("limit") int limit);
+
+    @Select({"select count(id) from ", TABLE_NAME, " WHERE conversationId=#{conversationId} and hasRead=0"})
+    int getUnreadMessageCount(@Param("conversationId") String conversationId);
 }

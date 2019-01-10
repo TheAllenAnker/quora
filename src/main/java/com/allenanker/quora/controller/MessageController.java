@@ -75,7 +75,7 @@ public class MessageController {
             ViewObject vo = new ViewObject();
             vo.set("conversation", message);
             vo.set("user", userService.getUserById(targetId));
-            vo.set("unread", message.getId());
+            vo.set("unread", messageService.getUnreadMessageCount(message.getConversationId()));
             conversations.add(vo);
         }
         model.addAttribute("conversations", conversations);
