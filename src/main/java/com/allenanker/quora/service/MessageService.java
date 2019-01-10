@@ -23,4 +23,8 @@ public class MessageService {
     public List<Message> getConversationMessages(String conversationId, int offset, int limit) {
         return messageDAO.selectMessagesByConversationId(conversationId, offset, limit);
     }
+
+    public List<Message> getConversationList(int userId, int offset, int limit) {
+        return messageDAO.getConversationList(userId, offset, limit);
+    }
 }

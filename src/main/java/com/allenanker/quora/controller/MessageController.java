@@ -62,7 +62,24 @@ public class MessageController {
     }
 
     @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
-    public String getConversationList() {
+    public String getConversationList(Model model) {
+        if (hostHolder.getUser() == null) {
+            return "redirect:/loginPage";
+        }
+        int userId = hostHolder.getUser().getId();
+        List<Message> messageList = messageService.getConversationList(userId, 0, 10);
+        List<ViewObject> conversations = new ArrayList<>();
+        for (Message message : messageList) {
+            // the message id here is actually the total message count in each conversation
+            int targetId = message.getFromId() == userId ? message.getToId() : message.getFromId();
+            ViewObject vo = new ViewObject();
+            vo.set("conversation", message);
+            vo.set("user", userService.getUserById(targetId));
+            vo.set("unread", message.getId());
+            conversations.add(vo);
+        }
+        model.addAttribute("conversations", conversations);
+
         return "letter";
     }
 

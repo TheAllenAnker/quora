@@ -23,7 +23,8 @@
 <body class="zhi ">
 <div role="navigation" class="zu-top">
     <div class="zg-wrap modal-shifting clearfix" id="zh-top-inner">
-        <a href="https://nowcoder.com/" class="zu-top-link-logo" id="zh-top-link-logo" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_zhihu_logo">牛客</a>
+        <a href="/" class="zu-top-link-logo" id="zh-top-link-logo" data-za-c="view_home" data-za-a="visit_home"
+           data-za-l="top_navigation_zhihu_logo">牛客</a>
         <div class="top-nav-profile">
             <#if user??>
             <a href="https://nowcoder.com/people/hu-yuan-24-48" class="zu-top-nav-userinfo " id=":0" role="button" aria-haspopup="true" aria-activedescendant="">
