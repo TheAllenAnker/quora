@@ -11,6 +11,13 @@ public class EventModel {
 
     private HashMap<String, String> configs = new HashMap<>();
 
+    public EventModel() {
+    }
+
+    public EventModel(EventType type) {
+        this.type = type;
+    }
+
     public EventType getType() {
         return type;
     }
@@ -55,8 +62,9 @@ public class EventModel {
         return this;
     }
 
-    public void addConfig(String key, String value) {
+    public EventModel addConfig(String key, String value) {
         configs.put(key, value);
+        return this;
     }
 
     public String getConfig(String key) {

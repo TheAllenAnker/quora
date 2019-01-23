@@ -1,10 +1,7 @@
 package com.allenanker.quora.controller;
 
 import com.allenanker.quora.model.*;
-import com.allenanker.quora.service.CommentService;
-import com.allenanker.quora.service.QuestionService;
-import com.allenanker.quora.service.SensitiveWordsService;
-import com.allenanker.quora.service.UserService;
+import com.allenanker.quora.service.*;
 import com.allenanker.quora.util.QuoraUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +33,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(path = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -74,6 +74,12 @@ public class QuestionController {
             ViewObject vo = new ViewObject();
             vo.set("comment", comment);
             vo.set("user", userService.getUserById(comment.getUserId()));
+            if (hostHolder.getUser() == null) {
+                vo.set("liked", 0);
+            } else {
+                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
             comments.add(vo);
         }
         model.addAttribute("comments", comments);
